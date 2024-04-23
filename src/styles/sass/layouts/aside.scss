@@ -1,0 +1,41 @@
+.aside {
+    width: 117px;
+    min-height: 100vh;
+    height: 100%;
+    color: white;
+    background: #020203;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    &__icons {
+        margin-top: 256px;
+        margin-bottom: 164px;
+
+        li {
+            width: 68px;
+            height: 68px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            border-radius: 6px;
+
+            img {
+                height: 32px;
+            }
+
+            &:not(:last-child) {
+                margin-bottom: 20px;
+            }
+        }
+    }
+
+    &__copyright {
+        rotate: 180deg;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        margin-bottom: 59px;
+    }
+}
