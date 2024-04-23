@@ -1,9 +1,10 @@
 .layout {
     display: flex;
     &__main {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        // display: flex;
+        // align-items: center;
+        // justify-content: center;
+        padding: 68px 90px;
         width: 100%;
     }
 }
