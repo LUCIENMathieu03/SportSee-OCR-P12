@@ -1,10 +1,10 @@
 import '../styles/sass/components/dataVisualisation.scss'
-import KeyNumber from '../components/keyNumber'
+import KeyNumbers from './KeyNumbers'
 
 function DataVisualisation() {
     return (
-        <div>
-            <KeyNumber icon="energy" number="155" info="calories" />
+        <div className="dataVis">
+            <KeyNumbers />
         </div>
     )
 }

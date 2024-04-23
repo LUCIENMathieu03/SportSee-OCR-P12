@@ -6,9 +6,9 @@ import chicken from '../styles/assets/chicken.svg'
 import '../styles/sass/components/keyNumber.scss'
 
 type KeyNumberProps = {
-    icon: string
-    number: string
-    info: string
+    icon: 'energy' | 'chicken' | 'apple' | 'cheeseburger'
+    number: number
+    info: 'Calories' | 'Proteines' | 'Glucides' | 'Lipides'
 }
 
 function KeyNumber({ icon, number, info }: KeyNumberProps) {
@@ -29,12 +29,36 @@ function KeyNumber({ icon, number, info }: KeyNumberProps) {
         }
     }
 
+    const handleIconColor = (icon: string) => {
+        switch (icon) {
+            case 'energy':
+                return 'red'
+                break
+            case 'chicken':
+                return 'blue'
+                break
+            case 'apple':
+                return 'yellow'
+                break
+            case 'cheeseburger':
+                return 'pink'
+                break
+        }
+    }
+
     return (
         <div className="keyNumber">
-            <img src={handleIcon(icon)} className="keyNumber__icon" />
-            <div className="keyNumber__number">
-                <p>{number}</p>
-                <p>{info}</p>
+            <img
+                src={handleIcon(icon)}
+                className={`keyNumber__icon keyNumber__icon--${handleIconColor(
+                    icon
+                )}`}
+            />
+            <div className="keyNumber__info">
+                <p className="keyNumber__info__number">{`${number.toLocaleString(
+                    'en-US'
+                )}${info === 'Calories' ? 'kCal' : 'g'}`}</p>
+                <p className="keyNumber__info__text">{info}</p>
             </div>
         </div>
     )
