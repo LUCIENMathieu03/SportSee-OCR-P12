@@ -6,7 +6,7 @@ function App() {
     return (
         <>
             <Layout>
-                <Title />
+                <Title name="Thomas" />
                 <DataVisualisation />
             </Layout>
         </>

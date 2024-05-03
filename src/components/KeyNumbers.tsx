@@ -1,13 +1,38 @@
 import KeyNumber from './KeyNumber'
 
-function KeyNumbers() {
+type KeyNumbersProps = {
+    userKeyData: {
+        calorieCount: number
+        proteinCount: number
+        carbohydrateCount: number
+        lipidCount: number
+    }
+}
+
+function KeyNumbers({ userKeyData }: KeyNumbersProps) {
     return (
-        <>
-            <KeyNumber icon="energy" number={1355} info="Calories" />
-            <KeyNumber icon="chicken" number={155} info="Proteines" />
-            <KeyNumber icon="apple" number={155} info="Glucides" />
-            <KeyNumber icon="cheeseburger" number={155} info="Lipides" />
-        </>
+        <div className="keyNumbers">
+            <KeyNumber
+                icon="energy"
+                number={userKeyData.calorieCount}
+                info="Calories"
+            />
+            <KeyNumber
+                icon="chicken"
+                number={userKeyData.proteinCount}
+                info="Proteines"
+            />
+            <KeyNumber
+                icon="apple"
+                number={userKeyData.carbohydrateCount}
+                info="Glucides"
+            />
+            <KeyNumber
+                icon="cheeseburger"
+                number={userKeyData.lipidCount}
+                info="Lipides"
+            />
+        </div>
     )
 }
 

@@ -21,8 +21,8 @@
 
         justify-content: space-between;
 
-        // li:not(:last-child) {
-        //     margin-right: 219px;
-        // }
+        li:last-child {
+            margin-right: 59px;
+        }
     }
 }

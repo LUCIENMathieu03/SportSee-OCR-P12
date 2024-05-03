@@ -1,10 +1,15 @@
 .layout {
     display: flex;
     &__main {
-        // display: flex;
-        // align-items: center;
-        // justify-content: center;
         padding: 68px 90px;
         width: 100%;
+    }
+}
+
+@media screen and (max-width: 1439px) {
+    .layout {
+        &__main {
+            padding: 40px 20px;
+        }
     }
 }

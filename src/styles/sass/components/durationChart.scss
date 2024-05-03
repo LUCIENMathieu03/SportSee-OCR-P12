@@ -1,0 +1,28 @@
+.durationChart {
+    position: relative;
+    height: 263px;
+    background: #ff0000;
+    border-radius: 6px;
+
+    &__legend {
+        top: 29px;
+        position: absolute;
+        margin-left: 34px;
+        color: #ffffff;
+        font-size: 15px;
+        opacity: 0.5;
+    }
+    &__tooltip {
+        font-size: 12px;
+        padding: 0 7px;
+        background: #ffffff;
+        line-height: 24px;
+        font-weight: 500;
+    }
+
+    &__xaxis {
+        text {
+            color: #ffffff;
+        }
+    }
+}

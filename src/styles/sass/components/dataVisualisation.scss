@@ -1,3 +1,13 @@
 .dataVis {
     margin-top: 77px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+
+@media screen and (max-width: 1439px) {
+    .dataVis {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column-reverse;
+    }
 }
