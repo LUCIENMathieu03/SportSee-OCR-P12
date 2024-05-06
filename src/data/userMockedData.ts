@@ -1,52 +1,9 @@
-type userInfoType = {
-    data: {
-        id: number
-        userInfos: object
-        todayScore: number
-        keyData: {
-            calorieCount: number
-            proteinCount: number
-            carbohydrateCount: number
-            lipidCount: number
-        }
-    }
-}
-
-type userActivityType = {
-    data: {
-        userId: number
-        sessions: {
-            day: string
-            kilogram: number
-            calories: number
-        }[]
-    }
-}
-
-type userAverageSessionType = {
-    data: {
-        userId: number
-        sessions: {
-            day: number
-            sessionLength: number
-        }[]
-    }
-}
-
-type userPerformanceType = {
-    data: {
-        userId: number
-        kind: {
-            '1': string
-            '2': string
-            '3': string
-            '4': string
-            '5': string
-            '6': string
-        }
-        data: { value: number; kind: number }[]
-    }
-}
+import {
+    userInfoType,
+    userActivityType,
+    userAverageSessionType,
+    userPerformanceType,
+} from './userMockedData.type'
 
 export const mockedUserData: userInfoType = {
     data: {
@@ -105,7 +62,7 @@ export const mockedUserActivityData: userActivityType = {
     },
 }
 
-export const mockedAvergeSession: userAverageSessionType = {
+export const mockedUserAvergeSessionData: userAverageSessionType = {
     data: {
         userId: 12,
         sessions: [
@@ -141,7 +98,7 @@ export const mockedAvergeSession: userAverageSessionType = {
     },
 }
 
-export const mockedPerformance: userPerformanceType = {
+export const mockedUserPerformanceData: userPerformanceType = {
     data: {
         userId: 12,
         kind: {

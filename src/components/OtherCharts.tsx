@@ -1,6 +1,7 @@
 import '../styles/sass/components/otherCharts.scss'
 import DurationChart from './DurationChart'
 import PerformanceChart from './PerformanceChart'
+import ScoreChart from './ScoreChart'
 
 type OtherChartsType = {
     userSessions: {
@@ -8,7 +9,6 @@ type OtherChartsType = {
         sessionLength: number
     }[]
     userPerfomance: {
-        userId: number
         kind: {
             '1': string
             '2': string
@@ -19,12 +19,19 @@ type OtherChartsType = {
         }
         data: { value: number; kind: number }[]
     }
+    userScore: number
 }
-function OtherCharts({ userSessions, userPerfomance }: OtherChartsType) {
+
+function OtherCharts({
+    userSessions,
+    userPerfomance,
+    userScore,
+}: OtherChartsType) {
     return (
         <div className="otherCharts">
             <DurationChart userSessions={userSessions} />
             <PerformanceChart userPerformance={userPerfomance} />
+            <ScoreChart userScore={userScore} />
         </div>
     )
 }

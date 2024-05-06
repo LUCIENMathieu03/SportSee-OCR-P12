@@ -1,0 +1,51 @@
+.scoreChart {
+    background: #fbfbfb;
+    border-radius: 6px;
+    height: 263px;
+    width: 100%;
+
+    &__text {
+        position: relative;
+        &__title {
+            position: absolute;
+            top: 24px;
+            left: 30px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        &__info {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 263px;
+
+            div {
+                width: 60%;
+                max-width: 170px;
+                height: 60%;
+                border-radius: 100px;
+                background: white;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                z-index: 10;
+            }
+
+            &__percentage {
+                font-size: 26px;
+                font-weight: 700;
+                margin-bottom: 5px;
+            }
+            & span:not(:first-child) {
+                text-align: center;
+                font-weight: 500;
+                font-size: 16px;
+                color: #74798c;
+            }
+        }
+    }
+}

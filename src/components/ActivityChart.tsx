@@ -10,9 +10,25 @@ import {
     ResponsiveContainer,
 } from 'recharts'
 
+type Payload = {
+    value: string
+}
+
 type CustomTooltipType = {
     active: string
-    payload: { value: string }[]
+    payload: Payload[]
+}
+
+type RenderLegendType = {
+    payload: Payload[]
+}
+
+type BarChartType = {
+    userActivity: {
+        day: string
+        kilogram: number
+        calories: number
+    }[]
 }
 
 const CustomTooltip = ({ active, payload }: CustomTooltipType) => {
@@ -27,10 +43,6 @@ const CustomTooltip = ({ active, payload }: CustomTooltipType) => {
     }
 
     return null
-}
-
-type RenderLegendType = {
-    payload: { value: string }[]
 }
 
 const RenderLegend = ({ payload }: RenderLegendType) => {
@@ -57,14 +69,6 @@ const RenderLegend = ({ payload }: RenderLegendType) => {
             </ul>
         </div>
     )
-}
-
-type BarChartType = {
-    userActivity: {
-        day: string
-        kilogram: number
-        calories: number
-    }[]
 }
 
 function ActivityChart({ userActivity }: BarChartType) {

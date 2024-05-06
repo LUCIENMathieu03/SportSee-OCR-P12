@@ -151,7 +151,7 @@ function DurationChart({ userSessions }: DurationChartType) {
                                 fontSize: '12px',
                             },
                         }}
-                        padding={{ left: -10, right: -10 }}
+                        padding={{ left: -15, right: -15 }}
                     />
 
                     <YAxis

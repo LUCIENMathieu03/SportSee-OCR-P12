@@ -10,7 +10,6 @@ import {
 
 type PerformanceChartType = {
     userPerformance: {
-        userId: number
         kind: {
             '1': string
             '2': string
@@ -23,32 +22,24 @@ type PerformanceChartType = {
     }
 }
 
-type newData = { value: number; kind: string }[]
-type elem = { value: number; kind: string }
+type NewData = { value: number; kind: string }[]
 
-type tmpElemKindType = '1' | '2' | '3' | '4' | '5' | '6'
+type Elem = { value: number; kind: string }
 
-const customedLabels = ({ payload, x, y, cx, cy, ...rest }) => {
-    return (
-        <Text
-            {...rest}
-            y={y}
-            x={x}
-            style={{
-                fontSize: 12,
-                fontWeight: 500,
-                fill: '#ffffff',
-            }}
-        >
-            {payload.value}
-        </Text>
-    )
+type TmpElemKindType = '1' | '2' | '3' | '4' | '5' | '6'
+
+type CustomedLabels = {
+    payload: { value: string }
+    x: number
+    y: number
+    cx: number
+    cy: number
 }
 
 function PerformanceChart({ userPerformance }: PerformanceChartType) {
     const refactoredData = () => {
-        const newData: newData = []
-        let tmpElemKind: tmpElemKindType
+        const newData: NewData = []
+        let tmpElemKind: TmpElemKindType
         let newKind: string
 
         userPerformance.data.map((elem) => {
@@ -99,8 +90,6 @@ function PerformanceChart({ userPerformance }: PerformanceChartType) {
             newData.push(tempObj)
         })
 
-        console.log(newData)
-
         const orderOfKind = [
             'Intensité',
             'Vitesse',
@@ -110,7 +99,7 @@ function PerformanceChart({ userPerformance }: PerformanceChartType) {
             'Cardio',
         ]
 
-        newData.sort((a: elem, b: elem): number => {
+        newData.sort((a: Elem, b: Elem): number => {
             const indexA = orderOfKind.indexOf(a.kind)
             const indexB = orderOfKind.indexOf(b.kind)
 
@@ -120,18 +109,35 @@ function PerformanceChart({ userPerformance }: PerformanceChartType) {
         return newData
     }
 
+    const customedLabels = ({ payload, x, y, cx, cy }: CustomedLabels) => {
+        return (
+            <Text
+                y={y > cy ? y + 13 : y - 5}
+                x={x === cx ? x : x > cx ? x + 20 : x - 20}
+                textAnchor="middle"
+                style={{
+                    fontSize: '12px',
+                    fontWeight: 500,
+                    fill: '#ffffff',
+                    margin: '100px',
+                    lineHeight: '24px',
+                }}
+            >
+                {payload.value}
+            </Text>
+        )
+    }
+
     return (
         <div className="performanceChart">
             <ResponsiveContainer width="100%">
                 <RadarChart
                     data={refactoredData()}
-                    margin={{ left: 20, right: 20 }}
+                    margin={{ left: 20, right: 20, top: 20, bottom: 20 }}
+                    outerRadius={'180px'}
                 >
-                    <PolarGrid type="circle" radialLines={false} />
-                    <PolarAngleAxis
-                        dataKey="kind"
-                        tick={(props) => customedLabels(props)}
-                    />
+                    <PolarGrid radialLines={false} />
+                    <PolarAngleAxis dataKey="kind" tick={customedLabels} />
                     <Radar dataKey="value" fill="#FF0101" fillOpacity={0.7} />
                 </RadarChart>
             </ResponsiveContainer>

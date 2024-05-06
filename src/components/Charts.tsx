@@ -4,49 +4,35 @@ import OtherCharts from './OtherCharts'
 
 type ChartsType = {
     activity: {
-        data: {
-            userId: number
-            sessions: {
-                day: string
-                kilogram: number
-                calories: number
-            }[]
-        }
+        sessions: { day: string; kilogram: number; calories: number }[]
     }
 
     sessions: {
-        data: {
-            userId: number
-            sessions: {
-                day: number
-                sessionLength: number
-            }[]
-        }
+        sessions: { day: number; sessionLength: number }[]
     }
 
     performance: {
-        data: {
-            userId: number
-            kind: {
-                '1': string
-                '2': string
-                '3': string
-                '4': string
-                '5': string
-                '6': string
-            }
-            data: { value: number; kind: number }[]
+        data: { value: number; kind: number }[]
+        kind: {
+            '1': string
+            '2': string
+            '3': string
+            '4': string
+            '5': string
+            '6': string
         }
     }
+    score: number
 }
 
-function Charts({ activity, sessions, performance }: ChartsType) {
+function Charts({ activity, sessions, performance, score }: ChartsType) {
     return (
         <div className="charts">
-            <ActivityChart userActivity={activity.data.sessions} />
+            <ActivityChart userActivity={activity.sessions} />
             <OtherCharts
-                userSessions={sessions.data.sessions}
-                userPerfomance={performance.data}
+                userSessions={sessions.sessions}
+                userPerfomance={performance}
+                userScore={score}
             />
         </div>
     )
