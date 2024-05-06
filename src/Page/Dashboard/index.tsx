@@ -2,6 +2,7 @@ import Layout from '../../components/Layout.tsx'
 import Title from '../../components/Title.tsx'
 import DataVisualisation from '../../components/DataVisualisation.tsx'
 import { useParams } from 'react-router-dom'
+
 import { useEffect, useState } from 'react'
 import Api from '../../utils/api.ts'
 
@@ -104,29 +105,51 @@ function App() {
         if (id) {
             const userId = parseInt(id)
 
-            const fetchData = async () => {
-                if (id) {
+            const fetchData = async (userId: number) => {
+                if (userId) {
                     const api = new Api()
                     try {
-                        const userInfodata = await api.apiUserInfo(id)
+                        const userInfodata = await api.userInfo(userId)
                         setUserInfo(userInfodata)
+                        try {
+                            const userActivityData = await api.userActivity(
+                                userId
+                            )
+                            setUserActivity(userActivityData)
+
+                            try {
+                                const userAverageSession =
+                                    await api.userAverageSession(userId)
+                                setUserAverageSession(userAverageSession)
+
+                                try {
+                                    const userAverageSession =
+                                        await api.userPerformance(userId)
+                                    setUserPerformance(userAverageSession)
+                                } catch (error) {
+                                    console.error(
+                                        'Erreur data performance :',
+                                        error
+                                    )
+                                }
+                            } catch (error) {
+                                console.error(
+                                    'Erreur data average-session :',
+                                    error
+                                )
+                            }
+                        } catch (error) {
+                            console.error('Erreur data activity:', error)
+                        }
                     } catch (error) {
-                        console.error(
-                            'Erreur lors de la récupération des informations utilisateur:',
-                            error
-                        )
+                        console.error('Erreur data information :', error)
                     }
                 } else {
                     setUserInfo(mockedUserData)
                 }
             }
 
-            fetchData()
-
-            // setUserInfo(mockedUserData)
-            setUserActivity(mockedUserActivityData)
-            setUserAverageSession(mockedUserAvergeSessionData)
-            setUserPerformance(mockedUserPerformanceData)
+            fetchData(userId)
         } else {
             setUserInfo(mockedUserData)
             setUserActivity(mockedUserActivityData)
@@ -146,7 +169,7 @@ function App() {
 
     return (
         <Layout>
-            <Title name="Thomas" />
+            <Title name={userInfoData.userInfos.firstName} />
             <DataVisualisation
                 userInfoData={userInfoData}
                 userActivityData={userActivityData}
