@@ -8,13 +8,13 @@ import {
 export const mockedUserData: userInfoType = {
     data: {
         id: 12,
-        userInfos: { firstName: 'Karl', lastName: 'Dovineau', age: 31 },
-        todayScore: 0.12,
+        userInfos: { firstName: 'Thomas', lastName: 'Dovineau', age: 31 },
+        todayScore: 0.64,
         keyData: {
-            calorieCount: 1930,
-            proteinCount: 155,
+            calorieCount: 2430,
+            proteinCount: 109,
             carbohydrateCount: 290,
-            lipidCount: 50,
+            lipidCount: 57,
         },
     },
 }
@@ -68,11 +68,11 @@ export const mockedUserAvergeSessionData: userAverageSessionType = {
         sessions: [
             {
                 day: 1,
-                sessionLength: 30,
+                sessionLength: 12,
             },
             {
                 day: 2,
-                sessionLength: 23,
+                sessionLength: 54,
             },
             {
                 day: 3,
@@ -80,7 +80,7 @@ export const mockedUserAvergeSessionData: userAverageSessionType = {
             },
             {
                 day: 4,
-                sessionLength: 50,
+                sessionLength: 58,
             },
             {
                 day: 5,
@@ -88,7 +88,7 @@ export const mockedUserAvergeSessionData: userAverageSessionType = {
             },
             {
                 day: 6,
-                sessionLength: 0,
+                sessionLength: 15,
             },
             {
                 day: 7,

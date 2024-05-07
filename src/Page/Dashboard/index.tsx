@@ -1,10 +1,17 @@
 import Layout from '../../components/Layout.tsx'
 import Title from '../../components/Title.tsx'
 import DataVisualisation from '../../components/DataVisualisation.tsx'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 import { useEffect, useState } from 'react'
 import Api from '../../utils/api.ts'
+
+import {
+    tmpUserInfo,
+    tmpUserActivity,
+    tmpUserAverageSession,
+    tmpUserPreformance,
+} from '../../data/tmpUserData.ts'
 
 import {
     userInfoType,
@@ -27,65 +34,9 @@ import {
     userPerformanceModel,
 } from '../../utils/userDataModel'
 
-const tmpUserInfo = {
-    data: {
-        id: 0,
-        userInfos: {
-            firstName: '',
-            lastName: '',
-            age: 0,
-        },
-        todayScore: 0,
-        keyData: {
-            calorieCount: 0,
-            proteinCount: 0,
-            carbohydrateCount: 0,
-            lipidCount: 0,
-        },
-    },
-}
-
-const tmpUserActivity = {
-    data: {
-        userId: 0,
-        sessions: [
-            {
-                day: '',
-                kilogram: 0,
-                calories: 0,
-            },
-        ],
-    },
-}
-
-const tmpUserAverageSession = {
-    data: {
-        userId: 0,
-        sessions: [
-            {
-                day: 0,
-                sessionLength: 0,
-            },
-        ],
-    },
-}
-
-const tmpUserPreformance = {
-    data: {
-        userId: 0,
-        kind: {
-            '1': '',
-            '2': '',
-            '3': '',
-            '4': '',
-            '5': '',
-            '6': '',
-        },
-        data: [{ value: 0, kind: 0 }],
-    },
-}
-
 function App() {
+    const navigate = useNavigate()
+
     const [userInfo, setUserInfo] = useState<userInfoType>(tmpUserInfo)
 
     const [userActivity, setUserActivity] =
@@ -99,57 +50,50 @@ function App() {
 
     const { id } = useParams()
 
-    useEffect(() => {
-        console.log(id)
+    const fetchData = async (userId: number) => {
+        const api = new Api()
+        try {
+            const userInfodata = await api.userInfo(userId)
+            setUserInfo(userInfodata)
+            try {
+                const userActivityData = await api.userActivity(userId)
+                setUserActivity(userActivityData)
+                try {
+                    const userAverageSession = await api.userAverageSession(
+                        userId
+                    )
+                    setUserAverageSession(userAverageSession)
 
+                    try {
+                        const userAverageSession = await api.userPerformance(
+                            userId
+                        )
+                        setUserPerformance(userAverageSession)
+                    } catch (error) {
+                        console.error('Erreur data performance :', error)
+                    }
+                } catch (error) {
+                    console.error('Erreur data average-session :', error)
+                }
+            } catch (error) {
+                console.error('Erreur data activity:', error)
+            }
+        } catch (error) {
+            console.error('Erreur data information :', error)
+        }
+    }
+
+    useEffect(() => {
         if (id) {
             const userId = parseInt(id)
 
-            const fetchData = async (userId: number) => {
-                if (userId) {
-                    const api = new Api()
-                    try {
-                        const userInfodata = await api.userInfo(userId)
-                        setUserInfo(userInfodata)
-                        try {
-                            const userActivityData = await api.userActivity(
-                                userId
-                            )
-                            setUserActivity(userActivityData)
-
-                            try {
-                                const userAverageSession =
-                                    await api.userAverageSession(userId)
-                                setUserAverageSession(userAverageSession)
-
-                                try {
-                                    const userAverageSession =
-                                        await api.userPerformance(userId)
-                                    setUserPerformance(userAverageSession)
-                                } catch (error) {
-                                    console.error(
-                                        'Erreur data performance :',
-                                        error
-                                    )
-                                }
-                            } catch (error) {
-                                console.error(
-                                    'Erreur data average-session :',
-                                    error
-                                )
-                            }
-                        } catch (error) {
-                            console.error('Erreur data activity:', error)
-                        }
-                    } catch (error) {
-                        console.error('Erreur data information :', error)
-                    }
-                } else {
-                    setUserInfo(mockedUserData)
-                }
+            if (userId) {
+                fetchData(userId)
+            } else {
+                console.log('erreur')
+                navigate('/error')
+                //naviguer sur la page d'erreur
             }
-
-            fetchData(userId)
         } else {
             setUserInfo(mockedUserData)
             setUserActivity(mockedUserActivityData)
