@@ -1,0 +1,78 @@
+.activityChart {
+    background: #fbfbfb;
+    padding: 23px 29px 23px 43px;
+    border-radius: 5px;
+    height: 320px;
+
+    &__customizedTooltip {
+        position: relative;
+        top: -100px;
+        right: -50px;
+        color: white;
+        background-color: #e60000;
+        padding: 8px 14px; //taille donné dans le figma bizard
+
+        p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: 14px;
+            height: 48px;
+
+            // taille du figma ci dessous bizard
+            // font-size: 7px;
+            // line-height: 24px;
+        }
+    }
+
+    &__customizedLegend {
+        position: relative;
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+        align-items: center;
+        font-weight: 500;
+
+        &__title {
+            top: 0;
+            left: -10px;
+            position: absolute;
+            font-size: 15px;
+            color: #20253a;
+        }
+
+        &__legendList {
+            display: flex;
+
+            li {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #74798c;
+
+                font-size: 14px;
+            }
+            li:not(:last-child) {
+                margin-right: 32px;
+            }
+
+            &--first,
+            &--second {
+                background: #282d30;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                margin-right: 8px;
+            }
+
+            &--first {
+                background: #282d30;
+            }
+
+            &--second {
+                background: #e60000;
+            }
+        }
+    }
+}

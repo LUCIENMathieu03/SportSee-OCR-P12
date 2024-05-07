@@ -1,0 +1,12 @@
+.charts {
+    margin-right: 31px;
+    min-width: 835px;
+    width: 95%;
+}
+
+@media screen and (max-width: 1439px) {
+    .charts {
+        width: 100%;
+        margin-right: 0;
+    }
+}

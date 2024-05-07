@@ -1,0 +1,60 @@
+.keyNumber {
+    min-width: 235px;
+    height: 124px;
+    background: #fbfbfb;
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+
+    &:not(:last-child) {
+        margin-bottom: 39px;
+    }
+
+    img {
+        padding: 21px;
+        border-radius: 6px;
+    }
+
+    &__icon {
+        &--blue {
+            background: lighten(#4ab8ff, 32%);
+        }
+        &--yellow {
+            background: lighten(#f9ce23, 37%);
+        }
+        &--red {
+            background: lighten(#ff0000, 45%);
+        }
+        &--pink {
+            background: lighten(#fd51811a, 10%);
+        }
+    }
+
+    &__info {
+        margin-left: 24px;
+
+        &__number {
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        &__text {
+            font-weight: 500;
+            font-size: 14px;
+            color: #74798c;
+        }
+    }
+}
+
+@media screen and (max-width: 1439px) {
+    .keyNumbers {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .keyNumber {
+        min-width: 130px;
+    }
+}

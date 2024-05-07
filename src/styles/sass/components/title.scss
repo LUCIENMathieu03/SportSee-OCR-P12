@@ -1,0 +1,17 @@
+.title {
+    font-weight: 400;
+    font-size: 18px;
+
+    &__welcome {
+        font-weight: 500;
+        font-size: 48px;
+
+        &--colored {
+            color: red;
+        }
+    }
+
+    p:not(:first-child) {
+        margin-top: 41px;
+    }
+}
