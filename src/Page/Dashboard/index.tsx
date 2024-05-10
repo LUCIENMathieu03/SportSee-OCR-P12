@@ -34,9 +34,7 @@ import {
     userPerformanceModel,
 } from '../../utils/userDataModel'
 
-function App() {
-    const navigate = useNavigate()
-
+function Dashboard() {
     const [userInfo, setUserInfo] = useState<userInfoType>(tmpUserInfo)
 
     const [userActivity, setUserActivity] =
@@ -50,36 +48,38 @@ function App() {
 
     const { id } = useParams()
 
-    const fetchData = async (userId: number) => {
-        const api = new Api()
-        try {
-            const userInfodata = await api.userInfo(userId)
-            setUserInfo(userInfodata)
-            try {
-                const userActivityData = await api.userActivity(userId)
-                setUserActivity(userActivityData)
-                try {
-                    const userAverageSession = await api.userAverageSession(
-                        userId
-                    )
-                    setUserAverageSession(userAverageSession)
+    const navigate = useNavigate()
 
-                    try {
-                        const userAverageSession = await api.userPerformance(
-                            userId
-                        )
-                        setUserPerformance(userAverageSession)
-                    } catch (error) {
-                        console.error('Erreur data performance :', error)
-                    }
-                } catch (error) {
-                    console.error('Erreur data average-session :', error)
-                }
-            } catch (error) {
-                console.error('Erreur data activity:', error)
+    const fetchData = async (userId: number) => {
+        const api = Api()
+
+        try {
+            const userInfoApi = await api.userInfo(userId)
+            setUserInfo(userInfoApi)
+
+            const userActivityApi = await api.userActivity(userId)
+            setUserActivity(userActivityApi)
+
+            const userAverageSessionApi = await api.userAverageSession(userId)
+            setUserAverageSession(userAverageSessionApi)
+
+            const userPerfomanceApi = await api.userPerformance(userId)
+            setUserPerformance(userPerfomanceApi)
+
+            if (
+                typeof userInfoApi != 'object' &&
+                typeof userActivityApi != 'object' &&
+                typeof userAverageSessionApi != 'object' &&
+                typeof userPerfomanceApi != 'object'
+            ) {
+                navigate('/error')
             }
         } catch (error) {
-            console.error('Erreur data information :', error)
+            console.error(
+                'Erreur lors de la récupération des informations utilisateur :',
+                error
+            )
+            navigate('/error')
         }
     }
 
@@ -92,7 +92,6 @@ function App() {
             } else {
                 console.log('erreur')
                 navigate('/error')
-                //naviguer sur la page d'erreur
             }
         } else {
             setUserInfo(mockedUserData)
@@ -124,4 +123,4 @@ function App() {
     )
 }
 
-export default App
+export default Dashboard
