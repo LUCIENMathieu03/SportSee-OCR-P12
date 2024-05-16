@@ -1,15 +1,9 @@
-class Api {
-    constructor() {}
-
-    userInfo = async (id: number) => {
+function Api() {
+    const userInfo = async (id: number) => {
         const infoUrl = `http://localhost:3000/user/${id}`
 
         try {
             const response = await fetch(infoUrl)
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok')
-            }
 
             const data = await response.json()
 
@@ -22,15 +16,12 @@ class Api {
         }
     }
 
-    userActivity = async (id: number) => {
+    const userActivity = async (id: number) => {
         const activityUrl = `http://localhost:3000/user/${id}/activity`
 
         try {
             const response = await fetch(activityUrl)
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok')
-            }
             const data = await response.json()
 
             return data
@@ -42,44 +33,45 @@ class Api {
         }
     }
 
-    userAverageSession = async (id: number) => {
+    const userAverageSession = async (id: number) => {
         const averageSessionUrl = `http://localhost:3000/user/${id}/average-sessions`
 
         try {
             const response = await fetch(averageSessionUrl)
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok')
-            }
             const data = await response.json()
 
             return data
         } catch (error) {
             console.error(
-                'Erreur lors de la récupération des données "d\'average: session"',
+                'Erreur lors de la récupération des données "d\'average session:"',
                 error
             )
         }
     }
 
-    userPerformance = async (id: number) => {
+    const userPerformance = async (id: number) => {
         const averageSessionUrl = `http://localhost:3000/user/${id}/performance`
 
         try {
             const response = await fetch(averageSessionUrl)
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok')
-            }
             const data = await response.json()
 
             return data
         } catch (error) {
             console.error(
-                'Erreur lors de la récupération des données "de performance"',
+                'Erreur lors de la récupération des données "de performance":',
                 error
             )
         }
+    }
+
+    return {
+        userInfo,
+        userActivity,
+        userAverageSession,
+        userPerformance,
     }
 }
 
