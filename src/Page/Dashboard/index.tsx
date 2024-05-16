@@ -48,7 +48,7 @@ function Dashboard() {
 
     const { id } = useParams()
 
-    const useMockData: boolean = false // variable to use mocked data or not, if want use api pass it to false
+    const useMockData: boolean = true // variable to use mocked data or not, if want use api pass it to false
 
     const navigate = useNavigate()
 
