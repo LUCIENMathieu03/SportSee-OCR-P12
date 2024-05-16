@@ -48,6 +48,8 @@ function Dashboard() {
 
     const { id } = useParams()
 
+    const useMockData: boolean = false // variable to use mocked data or not, if want use api pass it to false
+
     const navigate = useNavigate()
 
     const fetchData = async (userId: number) => {
@@ -55,24 +57,26 @@ function Dashboard() {
 
         try {
             const userInfoApi = await api.userInfo(userId)
-            setUserInfo(userInfoApi)
 
             const userActivityApi = await api.userActivity(userId)
-            setUserActivity(userActivityApi)
 
             const userAverageSessionApi = await api.userAverageSession(userId)
-            setUserAverageSession(userAverageSessionApi)
 
             const userPerfomanceApi = await api.userPerformance(userId)
-            setUserPerformance(userPerfomanceApi)
 
+            // We throw an error when the api return an error
             if (
-                typeof userInfoApi != 'object' &&
-                typeof userActivityApi != 'object' &&
-                typeof userAverageSessionApi != 'object' &&
+                typeof userInfoApi != 'object' ||
+                typeof userActivityApi != 'object' ||
+                typeof userAverageSessionApi != 'object' ||
                 typeof userPerfomanceApi != 'object'
             ) {
-                navigate('/error')
+                throw Error
+            } else {
+                setUserInfo(userInfoApi)
+                setUserActivity(userActivityApi)
+                setUserAverageSession(userAverageSessionApi)
+                setUserPerformance(userPerfomanceApi)
             }
         } catch (error) {
             console.error(
@@ -84,20 +88,35 @@ function Dashboard() {
     }
 
     useEffect(() => {
-        if (id) {
-            const userId = parseInt(id)
-
-            if (userId) {
-                fetchData(userId)
-            } else {
-                console.log('erreur')
+        //usage of mockdata or api, the app use the mocked data if useMockData is true
+        if (useMockData) {
+            if (id) {
+                console.log(
+                    'error : (dev) if you want to use the api, set the variable useMockData to "false"'
+                )
                 navigate('/error')
+            } else {
+                setUserInfo(mockedUserData)
+                setUserActivity(mockedUserActivityData)
+                setUserAverageSession(mockedUserAvergeSessionData)
+                setUserPerformance(mockedUserPerformanceData)
             }
         } else {
-            setUserInfo(mockedUserData)
-            setUserActivity(mockedUserActivityData)
-            setUserAverageSession(mockedUserAvergeSessionData)
-            setUserPerformance(mockedUserPerformanceData)
+            if (id) {
+                const userId = parseInt(id)
+
+                if (userId) {
+                    fetchData(userId)
+                } else {
+                    console.log('erreur')
+                    navigate('/error')
+                }
+            } else {
+                console.log(
+                    'error :(dev) if you want to use the mocked data, set the variable useMockData to "true"'
+                )
+                navigate('/error')
+            }
         }
 
         // eslint-disable-next-line
